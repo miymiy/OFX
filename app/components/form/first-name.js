@@ -6,9 +6,9 @@ import FormControl, { FORM_CONTROL_TYPES } from './form-control'
 class FirstNameField extends React.Component {
   componentDidMount() {
     setTimeout(() => {
-      const elem = document.getElementById('fname');
-      if (elem) elem.focus();
-    }, 0);
+      const elem = document.getElementById('firstName')
+      if (elem) elem.focus()
+    }, 0)
   }
 
   render() {

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Router, Route } from 'react-enroute'
 import Form from './components/form'
 import Result from './components/result'
+import { getCurrPath } from './utils'
 
 type RouterProps = {
   dispatch: *,
@@ -19,7 +20,7 @@ class AppRouter extends React.Component {
       e.preventDefault()
       this.props.dispatch({
         type: 'PAGE/CHANGE_LOCATION',
-        data: window.location.pathname.substring(1)
+        data: getCurrPath()
       })
     })
   }

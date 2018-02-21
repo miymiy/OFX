@@ -3,7 +3,10 @@
 import React from 'react'
 
 const Result = () => (
-  <div>RESULTS</div>
+  <div className="panel panel-default">
+    <div class="panel-heading text-center">
+    </div>
+  </div>
 )
 
 export default Result

@@ -1,5 +1,7 @@
 // @flow
 
+import { getCurrPath } from '../utils'
+
 type PageReducerProps = {
   isLoading: boolean,
   location: string,
@@ -9,7 +11,7 @@ const pageReducer = (state: ?PageReducerProps, action: *): PageReducerProps => {
   if (!state) {
     return {
       isLoading: false,
-      location: ''
+      location: getCurrPath()
     }
   }
   switch (action.type) {

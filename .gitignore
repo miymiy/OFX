@@ -1,0 +1,13 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# Build files
+dest
+
+# Dependencies
+node_modules
+
+
+# misc
+.DS_Store
+npm-debug.log*
+.vscode

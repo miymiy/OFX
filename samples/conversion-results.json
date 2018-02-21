@@ -1,0 +1,16 @@
+{
+  "CustomerRate": 0.5593,
+  "CustomerRateInverse": 1.7879492222420883246915787592,
+  "CustomerAmount": 5593.00,
+  "InterbankAmount": 5652.6140736507621137871220860,
+  "DefaultFee": 15.0000,
+  "Fee": 0,
+  "FeeFreeThreshold": 1.0000,
+  "InterbankRate": 0.5652614073650762113787122086,
+  "InverseInterbankRate": 1.7690930018757608712858831532,
+  "DeliveryCountry": "UK",
+  "DeliveryTime": 0,
+  "ComparisonRate": 0.5350,
+  "ComparisonAmount": 243.0000,
+  "Message": "Sorry, min. transfer amount is AUD 250"
+}

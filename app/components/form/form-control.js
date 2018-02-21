@@ -68,9 +68,6 @@ const FormControl = (props: FormControlProps) => {
       }
     }
   }
-  console.log(id)
-  console.log(rest)
-
   const getControl = () => {
     if (props.type === FORM_CONTROL_TYPES.SELECT) {
       return (

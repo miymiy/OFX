@@ -18,6 +18,14 @@ const SubmitButton = (props: { dispatch: * }) => (
     >
       GET QUOTE
     </Button>
+    <Button
+      onClick={() => props.dispatch({
+        type: 'PAGE/CHANGING_LOCATION',
+        data: 'result'
+      })}
+    >
+      Result Page
+    </Button>
   </ButtonToolbar>
 )
 

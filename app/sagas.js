@@ -76,6 +76,21 @@ function* fetchQuote(): Generator<*, *, *> {
   const result = yield call(request, uri)
   // display another page
   console.log(result)
+  yield put({
+    type: 'PAGE/CHANGING_LOCATION',
+    data: 'result'
+  })
+}
+
+function* watchLocationChange(): Generator<*, *, *> {
+  while (true) {
+    const { data } = yield take('PAGE/CHANGING_LOCATION')
+    history.pushState(null, '', `${window.location.href}${data}`)
+    yield put({
+      type: 'PAGE/CHANGE_LOCATION',
+      data: 'result'
+    })
+  }
 }
 
 function* watchSubmit(): Generator<*, *, *> {
@@ -87,6 +102,7 @@ function* watchSubmit(): Generator<*, *, *> {
 
 export default function* sagas(): Generator<*, *, *> {
   yield [
+    fork(watchLocationChange),
     fork(watchSubmit),
     fork(fetchCountryCodes),
     fork(fetchCurrencyTypes)

@@ -14,7 +14,7 @@ export const request = (
 // / /g
 export const dollarStrToNumber = (str: string) => {
   const cleanStr = str.replace(/\$|,| /g, '')
-  return parseFloat(+cleanStr)
+  return !cleanStr ? NaN : parseFloat(+cleanStr)
 }
 
 export const mapQuotesToDisplay = () => {

@@ -1,13 +1,13 @@
 // @flow
 
 import React from 'react'
-import Form from './components/Form'
 import Grid from 'react-bootstrap/lib/Grid'
+import AppRouter from './router'
 
 const App = () => (
   <Grid>
     <h2>Quick Quote</h2>
-    <Form />
+    <AppRouter />
   </Grid>
 )
 

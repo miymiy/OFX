@@ -1,12 +1,12 @@
 // @flow
 
 import { combineReducers } from 'redux'
-import loadingReducer from './loadingReducer'
+import pageReducer from './pageReducer'
 import formReducer from './formReducer'
 
-const app = () => combineReducers({
-  loading: loadingReducer,
+const appReducers = () => combineReducers({
+  page: pageReducer,
   form: formReducer,
 })
 
-export default app
+export default appReducers

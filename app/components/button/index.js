@@ -7,14 +7,15 @@ import BootStrapButton from 'react-bootstrap/lib/Button';
 
 type ButtonProps = {
   children?: React.Node,
-  isLoading: boolean
+  isLoading: boolean,
+  onClick: () => void,
 };
 
 const Button = (props: ButtonProps) => {
   const {
     children = '',
     isLoading,
-    ...rest
+    onClick
   } = props;
   return (
     <ButtonToolbar style={{
@@ -26,7 +27,7 @@ const Button = (props: ButtonProps) => {
         bsStyle="primary"
         disabled={isLoading}
         className="custom-bottom"
-        {...rest}
+        onClick={onClick}
       >
         {children && typeof children === 'string' ? children.toUpperCase() : children}
       </BootStrapButton>

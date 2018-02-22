@@ -1,8 +1,8 @@
 // @flow
 
-import R from 'ramda'
-import { dollarStrToNumber } from '../utils'
-import { ERROR_MESSAGES } from '../components/constants'
+import R from 'ramda';
+import { dollarStrToNumber } from '../utils';
+import { ERROR_MESSAGES } from '../components/constants';
 
 type FormDataProps = {
   firstName: string,
@@ -23,9 +23,9 @@ type FormReducerProps = {
 }
 
 const validateEmail = (email: string) => {
-  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  return re.test(email)
-}
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+};
 
 const initState = () => ({
   data: {
@@ -36,103 +36,91 @@ const initState = () => ({
     phoneNumber: '',
     fromCurrency: '',
     toCurrency: '',
-    amount: ''
+    amount: '',
   },
-  errors: {}
-})
+  errors: {},
+});
 
-const formReducer = (state: FormReducerProps, action: *)
-  : FormReducerProps => {
+const formReducer = (state: FormReducerProps, action: *): FormReducerProps => {
   if (!state) {
-    return {
-      data: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        countryCode: '61',
-        phoneNumber: '',
-        fromCurrency: '',
-        toCurrency: '',
-        amount: ''
-      },
-      errors: {}
-    }
+    return initState();
   }
   switch (action.type) {
     case 'FORM/RESET':
-      return initState()
+      return initState();
     case 'FORM/UPDATE_INPUT': {
       const {
         key,
-        value
-      } = action.data
+        value,
+      } = action.data;
       return {
         ...state,
         errors: R.omit([key], state.errors),
         data: {
           ...state.data,
-          [key]: value
-        }
-      }
+          [key]: value,
+        },
+      };
     }
     case 'FORM/VALIDATE_REQ_FIELD': {
-      const data = state.data[action.data]
+      const data = state.data[action.data];
       if (!data) {
         return {
           ...state,
           errors: {
             ...state.errors,
-            [action.data]: ERROR_MESSAGES.REQUIRED_FIELD
-          }
-        }
+            [action.data]: ERROR_MESSAGES.REQUIRED_FIELD,
+          },
+        };
       }
+      return state;
     }
     case 'FORM/VALIDATE_EMAIL': {
-      const data = state.data.email
+      const data = state.data.email;
       if (!!data && !validateEmail(data)) {
         return {
           ...state,
           errors: {
             ...state.errors,
-            email: ERROR_MESSAGES.INVALID_EMAIL
-          }
-        }
+            email: ERROR_MESSAGES.INVALID_EMAIL,
+          },
+        };
       }
-      return state
+      return state;
     }
     case 'FORM/VALIDATE_PHONENUMBER': {
-      const data = state.data.phoneNumber
-      if (!!data && isNaN(+(data.replace(/ /g,'')))) {
+      const data = state.data.phoneNumber;
+      if (!!data && Number.isNaN(+(data.replace(/ /g, '')))) {
         return {
           ...state,
           errors: {
             ...state.errors,
-            phoneNumber: ERROR_MESSAGES.INVALID_PHONE_NUMBER
-          }
-        }
+            phoneNumber: ERROR_MESSAGES.INVALID_PHONE_NUMBER,
+          },
+        };
       }
-      return state
+      return state;
     }
     case 'FORM/VALIDATE_AMOUNT': {
-      if (isNaN(dollarStrToNumber(state.data.amount))) {
+      if (Number.isNaN(dollarStrToNumber(state.data.amount))) {
         return {
           ...state,
           errors: {
             ...state.errors,
-            amount: ERROR_MESSAGES.AMOUNT_NOT_NUMBER
-          }
-        }
+            amount: ERROR_MESSAGES.AMOUNT_NOT_NUMBER,
+          },
+        };
       }
-      return state
+      return state;
     }
-    case 'FORM/UPDATE_ERRORS': 
+    case 'FORM/UPDATE_ERRORS':
       return {
         ...state,
-        errors: action.data
-      }
+        errors: action.data,
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default formReducer
+export default formReducer;

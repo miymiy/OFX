@@ -1,7 +1,7 @@
 // @flow
 
-import React from 'react'
-import { connect } from 'react-redux'
+import * as React from 'react';
+import { connect } from 'react-redux';
 
 const Rate = (props: { rate: number }) => (
   <React.Fragment>
@@ -9,16 +9,14 @@ const Rate = (props: { rate: number }) => (
     <span
       style={{
         color: 'rgb(0, 204, 153)',
-        fontSize: '4em'
+        fontSize: '4em',
       }}
     >
       {props.rate.toFixed(4)}
     </span>
   </React.Fragment>
-)
+);
 
-export default connect(
-  state => ({
-    rate: state.result.rate,
-  }), null
-)(Rate)
+export default connect(state => ({
+  rate: state.result.rate,
+}), null)(Rate);

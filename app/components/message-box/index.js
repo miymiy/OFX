@@ -1,24 +1,24 @@
 // @flow
 
-import React from 'react'
-import Alert from 'react-bootstrap/lib/Alert'
+import * as React from 'react';
+import Alert from 'react-bootstrap/lib/Alert';
 
 export const MESSAGE_BOX_TYPES = {
   DANGER: 'danger',
-  INFO: 'info'
-}
+  INFO: 'info',
+};
 
 type MessageBoxProps = {
   type: 'danger' | 'info',
-  children?: *,
+  children?: React.Node,
 }
 
 const MessageBox = (props: MessageBoxProps) => {
   const {
     type,
-    children,
+    children = null,
     ...rest
-  } = props
+  } = props;
   return (
     <Alert
       bsStyle={type}
@@ -26,7 +26,7 @@ const MessageBox = (props: MessageBoxProps) => {
     >
       {children}
     </Alert>
-  )
-}
+  );
+};
 
-export default MessageBox
+export default MessageBox;

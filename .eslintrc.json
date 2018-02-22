@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:flowtype/recommended"
+  ],
+  "plugins": [
+    "flowtype"
+  ],
+  "rules": {
+    "react/jsx-filename-extension": false,
+    "quote-props": 1,
+    "react/prop-types": false,
+    "react/require-default-props": false
+  }
+}

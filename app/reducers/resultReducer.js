@@ -15,15 +15,15 @@ const resultReducer = (state: ?ResultReducerProps, action: *): ResultReducerProp
       fromCurrency: 'AUD',
       toCurrency: 'AUD',
       fromAmount: 0,
-      toAmount: 0
-    }
+      toAmount: 0,
+    };
   }
   switch (action.type) {
     case 'RESULT/UPDATE':
-      return action.data
+      return action.data;
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default resultReducer
+export default resultReducer;

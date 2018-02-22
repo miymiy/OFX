@@ -1,7 +1,7 @@
 // @flow
 
-import React from 'react'
-import { connect } from 'react-redux'
+import * as React from 'react';
+import { connect } from 'react-redux';
 
 type ResultCurrencyProps = {
   currency: string,
@@ -14,7 +14,7 @@ const Currency = (props: ResultCurrencyProps) => (
     <h2>{props.type}</h2>
     <span
       style={{
-        fontSize: '3em'
+        fontSize: '3em',
       }}
     >
       {props.currency}
@@ -23,20 +23,18 @@ const Currency = (props: ResultCurrencyProps) => (
       style={{
         color: '#2e6da4',
         fontSize: '3em',
-        paddingLeft: '10px'
+        paddingLeft: '10px',
       }}
     >
       {props.amount.toFixed(2)}
     </span>
   </div>
-)
+);
 
-export default connect(
-  (state, props) => {
-    const type = props.type.toLowerCase()
-    return {
-      currency: state.result[`${type}Currency`],
-      amount: state.result[`${type}Amount`],
-    }
-  }, null
-)(Currency)
+export default connect((state, props) => {
+  const type = props.type.toLowerCase();
+  return {
+    currency: state.result[`${type}Currency`],
+    amount: state.result[`${type}Amount`],
+  };
+}, null)(Currency);

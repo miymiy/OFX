@@ -1,21 +1,20 @@
 // @flow
 
-import React from 'react'
-import { connect } from 'react-redux'
+import * as React from 'react';
 
-import Row from 'react-bootstrap/lib/Row'
-import Col from 'react-bootstrap/lib/Col'
-import FirstNameField from './first-name'
-import LastNameField from './last-name'
-import EmailField from './email'
-import Phone from './phone'
-import Amount from './amount'
-import SubmitButton from './submit-button'
-import CurrencySelect from './currency-select'
-import ErrorMessages from './error-messages'
-import { CURRENCY_SELECTOR_TYPES } from '../constants'
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
+import FirstNameField from './first-name';
+import LastNameField from './last-name';
+import EmailField from './email';
+import Phone from './phone';
+import Amount from './amount';
+import SubmitButton from './submit-button';
+import CurrencySelect from './currency-select';
+import ErrorMessages from './error-messages';
+import { CURRENCY_SELECTOR_TYPES } from '../constants';
 
-const Form = ({ loading, dispatch}) => (
+const Form = () => (
   <React.Fragment>
     <ErrorMessages />
     <form>
@@ -50,17 +49,16 @@ const Form = ({ loading, dispatch}) => (
               />
             </Col>
             <Col sm={6}>
-            <CurrencySelect
-              type={CURRENCY_SELECTOR_TYPES.TO}
-            />
+              <CurrencySelect
+                type={CURRENCY_SELECTOR_TYPES.TO}
+              />
             </Col>
           </Row>
           <Row>
             <Col sm={6}>
               <Amount />
             </Col>
-            <Col sm={6}>
-            </Col>
+            <Col sm={6} />
           </Row>
           <Row>
             <Col sm={12}>
@@ -71,13 +69,6 @@ const Form = ({ loading, dispatch}) => (
       </div>
     </form>
   </React.Fragment>
-)
+);
 
-const mapStateToProps = (state) => ({
-  loading: false
-})
-
-export default connect(
-  mapStateToProps,
-  dispatch => ({ dispatch })
-)(Form)
+export default Form;

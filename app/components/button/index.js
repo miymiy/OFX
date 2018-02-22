@@ -1,14 +1,9 @@
 // @flow
 
-import React from 'react'
-import { connect } from 'react-redux'
-import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar'
-import BootStrapButton from 'react-bootstrap/lib/Button'
-
-type ButtonProps = {
-  children?: string,
-  isLoading: boolean
-}
+import * as React from 'react';
+import { connect } from 'react-redux';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
+import BootStrapButton from 'react-bootstrap/lib/Button';
 
 const customStyles = {
   margin: '20px',
@@ -16,22 +11,28 @@ const customStyles = {
   paddingLeft: '60px',
   paddingRight: '60px',
   borderRadius: '25px',
-  letterSpacing: '.1rem'
-}
+  letterSpacing: '.1rem',
+};
+
+type ButtonProps = {
+  children?: React.Node,
+  isLoading: boolean
+};
 
 const Button = (props: ButtonProps) => {
   const {
-    children,
+    children = '',
     isLoading,
     ...rest
-  } = props
+  } = props;
   return (
     <ButtonToolbar style={{
       display: 'flex',
-      justifyContent: 'center'
-    }}>
+      justifyContent: 'center',
+    }}
+    >
       <BootStrapButton
-        bsStyle='primary'
+        bsStyle="primary"
         style={customStyles}
         {...rest}
         disabled={isLoading}
@@ -39,11 +40,9 @@ const Button = (props: ButtonProps) => {
         {children && typeof children === 'string' ? children.toUpperCase() : children}
       </BootStrapButton>
     </ButtonToolbar>
-  )
-}
+  );
+};
 
-export default connect(
-  state => ({
-    isLoading: state.page.isLoading
-  }), null
-)(Button)
+export default connect(state => ({
+  isLoading: state.page.isLoading,
+}), null)(Button);

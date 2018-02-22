@@ -1,11 +1,11 @@
 // @flow
 
-import React from 'react'
-import { connect } from 'react-redux'
-import InputGroup from 'react-bootstrap/lib/InputGroup'
-import FormGroup from 'react-bootstrap/lib/FormGroup'
-import FormControl from 'react-bootstrap/lib/FormControl'
-import ControlLabel from 'react-bootstrap/lib/ControlLabel'
+import * as React from 'react';
+import { connect } from 'react-redux';
+import InputGroup from 'react-bootstrap/lib/InputGroup';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 
 const Phone = (props: {
   dispatch: *,
@@ -17,27 +17,27 @@ const Phone = (props: {
   <FormGroup
     validationState={props.hasError ? 'error' : null}
   >
-    <ControlLabel
-    >
+    <ControlLabel >
       Telephone / Mobile
     </ControlLabel>
     <InputGroup>
       <InputGroup.Addon>
-        <select style={{
-            border: 'none',
-            backgroundColor: 'rgba(0, 0, 0, 0)',
-            margin: '-4px'
-          }}
+        <select
+          style={{
+          border: 'none',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          margin: '-4px',
+        }}
           value={props.countryCode}
           onChange={
-            e => props.dispatch({
-              type: 'FORM/UPDATE_INPUT',
-              data: {
-                key: 'countryCode',
-                value: e.target.value
-              }
-            })
-          }
+          e => props.dispatch({
+            type: 'FORM/UPDATE_INPUT',
+            data: {
+              key: 'countryCode',
+              value: e.target.value,
+            },
+          })
+        }
         >
           {Object.keys(props.codes).map(v => (
             <option
@@ -57,26 +57,26 @@ const Phone = (props: {
             type: 'FORM/UPDATE_INPUT',
             data: {
               key: 'phoneNumber',
-              value: e.target.value
-            }
+              value: e.target.value,
+            },
           })
         }
         onBlur={
-          e => props.dispatch({
-            type: 'FORM/VALIDATE_PHONENUMBER'
+          () => props.dispatch({
+            type: 'FORM/VALIDATE_PHONENUMBER',
           })
         }
       />
     </InputGroup>
   </FormGroup>
-)
+);
 
 export default connect(
   state => ({
     countryCode: state.form.data.countryCode,
     phoneNumber: state.form.data.phoneNumber,
     codes: state.staticData.form.countryCodes,
-    hasError: !!state.form.errors.phoneNumber
+    hasError: !!state.form.errors.phoneNumber,
   }),
-  dispatch => ({ dispatch })
-)(Phone)
+  dispatch => ({ dispatch }),
+)(Phone);

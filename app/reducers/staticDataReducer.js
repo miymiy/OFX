@@ -1,5 +1,6 @@
+// @flow
 
-const staticDataReducer = (state?: *, action: *) =>{
+const staticDataReducer = (state?: *, action: *) => {
   if (!state) {
     return {
       form: {
@@ -10,10 +11,10 @@ const staticDataReducer = (state?: *, action: *) =>{
           lastName: true,
           fromCurrency: true,
           toCurrency: true,
-          amount: true
-        }
-      }
-    }
+          amount: true,
+        },
+      },
+    };
   }
   switch (action.type) {
     case 'DATA/FORM/UPDATE_SELECTOR_DATA': {
@@ -21,12 +22,13 @@ const staticDataReducer = (state?: *, action: *) =>{
         ...state,
         form: {
           ...state.form,
-          ...action.data
-        }
-      }
+          ...action.data,
+        },
+      };
     }
+    default:
+      return state;
   }
-  return state
-}
+};
 
-export default staticDataReducer
+export default staticDataReducer;

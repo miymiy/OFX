@@ -1,16 +1,16 @@
 // @flow
 
-import { combineReducers } from 'redux'
-import pageReducer from './pageReducer'
-import formReducer from './formReducer'
-import resultReducer from './resultReducer'
-import staticDataReducer from './staticDataReducer'
+import { combineReducers } from 'redux';
+import pageReducer from './pageReducer';
+import formReducer from './formReducer';
+import resultReducer from './resultReducer';
+import staticDataReducer from './staticDataReducer';
 
 const appReducers = () => combineReducers({
   page: pageReducer,
   form: formReducer,
   result: resultReducer,
-  staticData: staticDataReducer
-})
+  staticData: staticDataReducer,
+});
 
-export default appReducers
+export default appReducers;

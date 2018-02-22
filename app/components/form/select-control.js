@@ -1,7 +1,7 @@
 // @flow
 
-import React from 'react'
-import FormControl from 'react-bootstrap/lib/FormControl'
+import * as React from 'react';
+import FormControl from 'react-bootstrap/lib/FormControl';
 
 export type SelectorData = { [key: string]: true }
 
@@ -11,7 +11,7 @@ const SelectControl = (props: {
   const {
     options,
     ...rest
-  } = props
+  } = props;
   return (
     <FormControl
       componentClass="select"
@@ -26,7 +26,7 @@ const SelectControl = (props: {
         </option>
       ))}
     </FormControl>
-  )
-}
+  );
+};
 
-export default SelectControl
+export default SelectControl;

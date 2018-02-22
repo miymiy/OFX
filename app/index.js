@@ -1,18 +1,20 @@
-// @flow
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import reducers from './reducers';
+import Layout from './layout';
+import sagas from './sagas';
 
-import React from 'react'
-import Grid from 'react-bootstrap/lib/Grid'
-import AppRouter from './router'
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(reducers(), applyMiddleware(sagaMiddleware));
 
-const App = () => (
-  <Grid>
-    <h2>Quick Quote</h2>
-    <hr style={{
-      border: '0px',
-      borderTop: '1px solid rgb(51, 204, 255)'
-    }} />
-    <AppRouter />
-  </Grid>
-)
+sagaMiddleware.run(sagas);
 
-export default App
+ReactDOM.render(
+  <Provider store={store}>
+    <Layout />
+  </Provider>,
+  global.document.getElementById('app-root'),
+);

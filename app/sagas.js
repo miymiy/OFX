@@ -1,7 +1,9 @@
-import R from 'ramda'
-import { fork, call, put, take, spawn, select } from 'redux-saga/effects'
-import { request, dollarStrToNumber } from './utils'
-import { ERROR_MESSAGES } from './components/constants'
+// @flow
+
+import R from 'ramda';
+import { fork, call, put, take, spawn, select } from 'redux-saga/effects';
+import { request, dollarStrToNumber } from './utils';
+import { ERROR_MESSAGES } from './components/constants';
 
 function* fetchCurrencyTypes(): Generator<*, *, *> {
   /* Some api calls to get currency types
@@ -15,14 +17,14 @@ function* fetchCurrencyTypes(): Generator<*, *, *> {
     EUR: 'Euro (EUR)',
     GBP: 'British Pound (GBP)',
     HKD: 'Hong Kong Dollar (HKD)',
-    NZD: 'New Zealand Dollar (NZD)'
-  }
+    NZD: 'New Zealand Dollar (NZD)',
+  };
   yield put({
     type: 'DATA/FORM/UPDATE_SELECTOR_DATA',
     data: {
-      currencies
-    }
-  })
+      currencies,
+    },
+  });
 }
 
 function* fetchCountryCodes(): Generator<*, *, *> {
@@ -48,50 +50,46 @@ function* fetchCountryCodes(): Generator<*, *, *> {
       }
     }, {})
   */
- const countryCodes = {
-   '11': '+1',
-   '61': '+61',
-   '886': '+886'
- }
+  const countryCodes = {
+    '11': '+1',
+    '61': '+61',
+    '886': '+886',
+  };
   yield put({
     type: 'DATA/FORM/UPDATE_SELECTOR_DATA',
     data: {
-      countryCodes
-    }
-  })
-  
+      countryCodes,
+    },
+  });
 }
 
 function* validateFormData(): * {
   const {
     staticData,
-    form
-  } = yield select(s => s)
+    form,
+  } = yield select(s => s);
 
-  const formData = form.data
+  const formData = form.data;
 
-  const errors = Object.keys(staticData.form.required).reduce(
-    (err, fieldName) => {
-      if (!formData[fieldName]) {
-        return {
-          ...err,
-          [fieldName]: ERROR_MESSAGES.REQUIRED_FIELD
-        }
-      }
-      return err
-    }, {}
-  )
-  const currencyErrors = formData.fromCurrency === formData.toCurrency ?
-    { fromCurrency: true, toCurrency: true } : {}
+  const errors = Object.keys(staticData.form.required).reduce((err, fieldName) => {
+    if (!formData[fieldName]) {
+      return {
+        ...err,
+        [fieldName]: ERROR_MESSAGES.REQUIRED_FIELD,
+      };
+    }
+    return err;
+  }, {});
+  const currencyErrors = formData.fromCurrency === formData.toCurrency
+    ? { fromCurrency: true, toCurrency: true } : {};
   yield put({
     type: 'FORM/UPDATE_ERRORS',
     data: {
       ...errors,
-      ...currencyErrors
-    }
-  })
+      ...currencyErrors,
+    },
+  });
 }
-
 
 type ConversionResult = {
   CustomerRate: number,
@@ -99,10 +97,11 @@ type ConversionResult = {
   Message: string
 }
 
-function* putQuoteToResult(result: ConversionResult,
+function* putQuoteToResult(
+  result: ConversionResult,
   fromCurrency: string,
   toCurrency: string,
-  fromAmount: number
+  fromAmount: number,
 ): * {
   yield put({
     type: 'RESULT/UPDATE',
@@ -111,54 +110,54 @@ function* putQuoteToResult(result: ConversionResult,
       fromCurrency,
       toCurrency,
       fromAmount,
-      toAmount: result.CustomerAmount
-    }
-  })
+      toAmount: result.CustomerAmount,
+    },
+  });
   yield put({
     type: 'PAGE/CHANGING_LOCATION',
-    data: 'result'
-  })
+    data: 'result',
+  });
 }
 
 function* fetchQuote(): Generator<*, *, *> {
   yield put.resolve({
-    type: 'PAGE/TOGGLE_LOADING'
-  })
-  yield call(validateFormData)
+    type: 'PAGE/TOGGLE_LOADING',
+  });
+  yield call(validateFormData);
   const {
     data,
-    errors
-  } = yield select(s => s.form)
+    errors,
+  } = yield select(s => s.form);
 
-  const amount = dollarStrToNumber(data.amount)
+  const amount = dollarStrToNumber(data.amount);
 
-  if (!R.isEmpty(errors) || isNaN(amount)) {
-    //some better error handling here
-    return
+  if (!R.isEmpty(errors) || Number.isNaN(amount)) {
+    // some better error handling here
+    return;
   }
-  const uri = `https://api.ofx.com/PublicSite.ApiService/OFX/spotrate/Individual/${data.fromCurrency}/${data.toCurrency}/${amount}?format=json`
-  const result = yield call(request, uri)
-  yield spawn(putQuoteToResult, result, data.fromCurrency, data.toCurrency, amount)
+  const uri = `https://api.ofx.com/PublicSite.ApiService/OFX/spotrate/Individual/${data.fromCurrency}/${data.toCurrency}/${amount}?format=json`;
+  const result = yield call(request, uri);
+  yield spawn(putQuoteToResult, result, data.fromCurrency, data.toCurrency, amount);
   yield put({
-    type: 'PAGE/TOGGLE_LOADING'
-  })
+    type: 'PAGE/TOGGLE_LOADING',
+  });
 }
 
 function* watchLocationChange(): Generator<*, *, *> {
   while (true) {
-    const { data } = yield take('PAGE/CHANGING_LOCATION')
-    history.pushState(null, '', `${window.location.origin}/${data}`)
+    const { data } = yield take('PAGE/CHANGING_LOCATION');
+    global.history.pushState(null, '', `${global.window.location.origin}/${data}`);
     yield put({
       type: 'PAGE/CHANGE_LOCATION',
       data,
-    })
+    });
   }
 }
 
 function* watchSubmit(): Generator<*, *, *> {
   while (true) {
-    yield take('FORM/SUBMIT')
-    yield spawn(fetchQuote)
+    yield take('FORM/SUBMIT');
+    yield spawn(fetchQuote);
   }
 }
 
@@ -167,6 +166,6 @@ export default function* sagas(): Generator<*, *, *> {
     fork(watchLocationChange),
     fork(watchSubmit),
     fork(fetchCountryCodes),
-    fork(fetchCurrencyTypes)
-  ]
+    fork(fetchCurrencyTypes),
+  ];
 }

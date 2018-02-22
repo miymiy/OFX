@@ -1,18 +1,18 @@
 // @flow
 
-import React from 'react'
-import { connect } from 'react-redux'
-import BootstrapFormControl from 'react-bootstrap/lib/FormControl'
-import FormGroup from 'react-bootstrap/lib/FormGroup'
-import ControlLabel from 'react-bootstrap/lib/ControlLabel'
-import SelectControl from './select-control'
+import * as React from 'react';
+import { connect } from 'react-redux';
+import BootstrapFormControl from 'react-bootstrap/lib/FormControl';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import SelectControl from './select-control';
 
-import type { SelectorData } from './select-control'
+import type { SelectorData } from './select-control';
 
 export const FORM_CONTROL_TYPES = {
   TEXT: 'text',
-  SELECT: 'select'
-}
+  SELECT: 'select',
+};
 
 type FormControlPropsBase = {
   id: string,
@@ -28,7 +28,6 @@ type FormControlTextProps = {
   type: 'text'
 } & FormControlPropsBase
 
-
 type FormControlSelectProps = {
   type: 'select',
   options: SelectorData
@@ -37,6 +36,23 @@ type FormControlSelectProps = {
 type FormControlProps =
   FormControlTextProps | FormControlSelectProps
 
+const handlers = (id, required, dispatch) => ({
+  onChange: e => dispatch({
+    type: 'FORM/UPDATE_INPUT',
+    data: {
+      key: id,
+      value: e.target.value,
+    },
+  }),
+  onBlur: () => {
+    if (required) {
+      dispatch({
+        type: 'FORM/VALIDATE_REQ_FIELD',
+        data: id,
+      });
+    }
+  },
+});
 
 const FormControl = (props: FormControlProps) => {
   const {
@@ -49,25 +65,7 @@ const FormControl = (props: FormControlProps) => {
     hasError,
     dispatch,
     ...rest
-  } = props
-
-  const handlers ={
-    onChange: e => dispatch({
-        type: 'FORM/UPDATE_INPUT',
-        data: {
-          key: id,
-          value: e.target.value
-        }
-      }),
-    onBlur: () => {
-      if (required) {
-        dispatch({
-          type: 'FORM/VALIDATE_REQ_FIELD',
-          data: id
-        })
-      }
-    }
-  }
+  } = props;
   const getControl = () => {
     if (props.type === FORM_CONTROL_TYPES.SELECT) {
       return (
@@ -75,21 +73,21 @@ const FormControl = (props: FormControlProps) => {
           value={value}
           placeholder={placeholder}
           options={props.options}
-          {...handlers}
+          {...handlers(id, required, dispatch)}
           {...rest}
         />
-      )
+      );
     }
     return (
       <BootstrapFormControl
         type={FORM_CONTROL_TYPES.TEXT}
         value={value}
         placeholder={placeholder}
-        {...handlers}
+        {...handlers(id, required, dispatch)}
         {...rest}
       />
-    )
-  }
+    );
+  };
 
   return (
     <FormGroup
@@ -97,21 +95,20 @@ const FormControl = (props: FormControlProps) => {
       validationState={hasError ? 'error' : null}
     >
       <ControlLabel
-        {...(required ? { className: 'required-input'} : {})}
+        {...(required ? { className: 'required-input' } : {})}
       >
         {label}
       </ControlLabel>
       {getControl()}
     </FormGroup>
-  )
-}
-
+  );
+};
 
 export default connect(
   (state, props) => ({
     value: state.form.data[props.id],
     hasError: !!state.form.errors[props.id],
-    required: !!state.staticData.form.required[props.id]
+    required: !!state.staticData.form.required[props.id],
   }),
-  dispatch => ({ dispatch })
-)(FormControl)
+  dispatch => ({ dispatch }),
+)(FormControl);

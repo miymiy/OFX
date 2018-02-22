@@ -5,6 +5,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import MessageBox, { MESSAGE_BOX_TYPES } from '../message-box';
 
+import type { StoreProps } from '../../reducers';
+
 const ErrorMessages = (props: {
   errors: *,
 }) => {
@@ -26,6 +28,6 @@ const ErrorMessages = (props: {
     </MessageBox>
   );
 };
-export default connect(state => ({
+export default connect((state: StoreProps) => ({
   errors: state.form.errors,
-}), null)(ErrorMessages);
+}), () => ({}))(ErrorMessages);

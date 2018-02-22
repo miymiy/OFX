@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import BootStrapButton from 'react-bootstrap/lib/Button';
 
+import type { StoreProps } from '../../reducers';
+
 type ButtonProps = {
   children?: React.Node,
   isLoading: boolean,
@@ -15,7 +17,7 @@ const Button = (props: ButtonProps) => {
   const {
     children = '',
     isLoading,
-    onClick
+    onClick,
   } = props;
   return (
     <ButtonToolbar style={{
@@ -35,6 +37,6 @@ const Button = (props: ButtonProps) => {
   );
 };
 
-export default connect(state => ({
+export default connect((state: StoreProps) => ({
   isLoading: state.page.isLoading,
-}), null)(Button);
+}), () => ({}))(Button);

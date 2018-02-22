@@ -4,6 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import FormControl, { FORM_CONTROL_TYPES } from './form-control';
 import type { SelectorData } from './select-control';
+import type { StoreProps } from '../../reducers';
 
 const CurrencySelector = (props: {
   type: 'From' | 'To',
@@ -25,6 +26,6 @@ const CurrencySelector = (props: {
     />
   );
 };
-export default connect(state => ({
+export default connect((state: StoreProps) => ({
   currencies: state.staticData.form.currencies,
-}), null)(CurrencySelector);
+}), () => ({}))(CurrencySelector);

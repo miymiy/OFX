@@ -17,7 +17,7 @@ type FormDataProps = {
 
 type FormErrors = { [key: string]: string }
 
-type FormReducerProps = {
+export type FormReducerProps = {
   data: FormDataProps,
   errors: FormErrors
 }

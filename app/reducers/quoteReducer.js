@@ -1,6 +1,6 @@
 // @flow
 
-type QuoteReducerProps = {
+export type QuoteReducerProps = {
   rate: number,
   fromCurrency: string,
   toCurrency: string,

@@ -2,7 +2,7 @@
 
 import { getCurrPath } from '../utils';
 
-type PageReducerProps = {
+export type PageReducerProps = {
   isLoading: boolean,
   location: string,
 }

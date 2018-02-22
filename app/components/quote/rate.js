@@ -19,4 +19,4 @@ const Rate = (props: { rate: number }) => (
 
 export default connect(state => ({
   rate: state.quote.rate,
-}), null)(Rate);
+}), () => ({}))(Rate);

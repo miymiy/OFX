@@ -37,4 +37,4 @@ export default connect((state, props) => {
     currency: state.quote[`${type}Currency`],
     amount: state.quote[`${type}Amount`],
   };
-}, null)(Currency);
+}, () => ({}))(Currency);

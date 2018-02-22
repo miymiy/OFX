@@ -71,7 +71,7 @@ function* putQuoteToResult(
 }
 
 function* fetchQuote(): Generator<*, *, *> {
-  yield put.resolve({
+  yield put({
     type: 'PAGE/TOGGLE_LOADING',
   });
   yield call(validateFormData);

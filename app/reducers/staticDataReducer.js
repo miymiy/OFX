@@ -1,6 +1,24 @@
 // @flow
+import type { SelectorData } from '../components/form/select-control';
 
-const staticDataReducer = (state?: *, action: *) => {
+export type StaticDataReducerProps = {
+  form: {
+    countryCodes: SelectorData,
+    currencies: SelectorData,
+    required: {
+      firstName: true,
+      lastName: true,
+      fromCurrency: true,
+      toCurrency: true,
+      amount: true,
+    }
+  }
+}
+
+const staticDataReducer = (
+  state?: StaticDataReducerProps,
+  action: *,
+): StaticDataReducerProps => {
   if (!state) {
     return {
       form: {

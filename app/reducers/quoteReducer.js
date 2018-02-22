@@ -1,6 +1,6 @@
 // @flow
 
-type ResultReducerProps = {
+type QuoteReducerProps = {
   rate: number,
   fromCurrency: string,
   toCurrency: string,
@@ -8,7 +8,7 @@ type ResultReducerProps = {
   toAmount: number
 }
 
-const resultReducer = (state: ?ResultReducerProps, action: *): ResultReducerProps => {
+const quoteReducer = (state: ?QuoteReducerProps, action: *): QuoteReducerProps => {
   if (!state) {
     return {
       rate: 1,
@@ -26,4 +26,4 @@ const resultReducer = (state: ?ResultReducerProps, action: *): ResultReducerProp
   }
 };
 
-export default resultReducer;
+export default quoteReducer;

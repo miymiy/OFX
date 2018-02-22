@@ -46,3 +46,13 @@ select.form-control {
   background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><polyline points='20,55 65,105 110,55' stroke='dodgerblue' stroke-width='15' stroke-linecap='round' fill='none' stroke-linejoin='round'/></svg>") right / 20px no-repeat #fff;
   padding-right: 20px;
 }
+
+.custom-bottom {
+  margin: 20px;
+  padding: 15px;
+  padding-left: 60px;
+  padding-right: 60px;
+  border-radius: 25px;
+  letter-spacing: .1rem;
+  min-width: 300px;
+}

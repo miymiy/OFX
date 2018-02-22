@@ -12,7 +12,7 @@ import Amount from './amount';
 import SubmitButton from './submit-button';
 import CurrencySelect from './currency-select';
 import ErrorMessages from './error-messages';
-import { CURRENCY_SELECTOR_TYPES } from '../constants';
+import { CURRENCY_SELECTOR_TYPES } from '../../constants';
 
 const Form = () => (
   <React.Fragment>

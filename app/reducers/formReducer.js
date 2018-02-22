@@ -2,7 +2,7 @@
 
 import R from 'ramda';
 import { dollarStrToNumber } from '../utils';
-import { ERROR_MESSAGES } from '../components/constants';
+import { ERROR_MESSAGES } from '../constants';
 
 type FormDataProps = {
   firstName: string,

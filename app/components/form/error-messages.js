@@ -19,7 +19,7 @@ const ErrorMessages = (props: {
       type={MESSAGE_BOX_TYPES.DANGER}
     >
       {messages.map(m => (
-        <div>
+        <div key={m}>
           {m}
         </div>
       ))}

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Router, Route } from 'react-enroute';
 import Form from './components/form';
-import Result from './components/result';
+import Quote from './components/quote';
 import { getCurrPath } from './utils';
 
 type RouterProps = {
@@ -31,7 +31,7 @@ class AppRouter extends React.Component<RouterProps> {
     return (
       <Router location={this.props.location}>
         <Route path="/" component={Form} />
-        <Route path="/result" component={Result} />
+        <Route path="/quote" component={Quote} />
       </Router>
     );
   }

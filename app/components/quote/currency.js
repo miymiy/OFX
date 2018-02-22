@@ -3,13 +3,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-type ResultCurrencyProps = {
+type QuoteCurrencyProps = {
   currency: string,
   amount: number,
   type: 'From' | 'To'
 }
 
-const Currency = (props: ResultCurrencyProps) => (
+const Currency = (props: QuoteCurrencyProps) => (
   <div className="text-left">
     <h2>{props.type}</h2>
     <span
@@ -34,7 +34,7 @@ const Currency = (props: ResultCurrencyProps) => (
 export default connect((state, props) => {
   const type = props.type.toLowerCase();
   return {
-    currency: state.result[`${type}Currency`],
-    amount: state.result[`${type}Amount`],
+    currency: state.quote[`${type}Currency`],
+    amount: state.quote[`${type}Amount`],
   };
 }, null)(Currency);

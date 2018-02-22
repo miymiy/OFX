@@ -56,3 +56,8 @@ select.form-control {
   letter-spacing: .1rem;
   min-width: 300px;
 }
+
+.error-feedback {
+  font-size: .8em;
+  color: #a94442;
+}

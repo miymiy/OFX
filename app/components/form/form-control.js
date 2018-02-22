@@ -20,7 +20,7 @@ type FormControlPropsBase = {
   value: string,
   required: boolean,
   placeholder?: string,
-  hasError: boolean,
+  error: ?string,
   dispatch: *
 }
 
@@ -62,10 +62,13 @@ const FormControl = (props: FormControlProps) => {
     value,
     placeholder = '',
     type,
-    hasError,
+    error = '',
     dispatch,
     ...rest
   } = props;
+
+  const hasError = !!error;
+
   const getControl = () => {
     if (props.type === FORM_CONTROL_TYPES.SELECT) {
       return (
@@ -100,6 +103,13 @@ const FormControl = (props: FormControlProps) => {
         {label}
       </ControlLabel>
       {getControl()}
+      {hasError && (
+        <label
+          className="error-feedback"
+        >
+          {error}
+        </label>)
+      }
     </FormGroup>
   );
 };
@@ -107,7 +117,7 @@ const FormControl = (props: FormControlProps) => {
 export default connect(
   (state, props) => ({
     value: state.form.data[props.id],
-    hasError: !!state.form.errors[props.id],
+    error: state.form.errors[props.id],
     required: !!state.staticData.form.required[props.id],
   }),
   dispatch => ({ dispatch }),

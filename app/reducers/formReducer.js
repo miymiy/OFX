@@ -15,21 +15,30 @@ type FormDataProps = {
 }
 
 type FormErrors = { [key: string]: true }
-export type SelectorData = { [key: string]: true }
 
 type FormReducerProps = {
   data: FormDataProps,
-  errors: FormErrors,
-  selectorData: {
-    countryCodes: SelectorData,
-    currencies: SelectorData
-  }
+  errors: FormErrors
 }
 
 const validateEmail = (email: string) => {
   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   return re.test(email)
 }
+
+const initState = () => ({
+  data: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    countryCode: '61',
+    phoneNumber: '',
+    fromCurrency: '',
+    toCurrency: '',
+    amount: ''
+  },
+  errors: {}
+})
 
 const formReducer = (state: FormReducerProps, action: *)
   : FormReducerProps => {
@@ -45,14 +54,12 @@ const formReducer = (state: FormReducerProps, action: *)
         toCurrency: '',
         amount: ''
       },
-      errors: {},
-      selectorData: {
-        countryCodes: {},
-        currencies: {},
-      }
+      errors: {}
     }
   }
   switch (action.type) {
+    case 'FORM/RESET':
+      return initState()
     case 'FORM/UPDATE_INPUT': {
       const {
         key,
@@ -117,15 +124,11 @@ const formReducer = (state: FormReducerProps, action: *)
       }
       return state
     }
-    case 'FORM/UPDATE_SELECTOR_DATA': {
+    case 'FORM/UPDATE_ERRORS': 
       return {
         ...state,
-        selectorData: {
-          ...state.selectorData,
-          ...action.data
-        }
+        errors: action.data
       }
-    }
     default:
       return state
   }

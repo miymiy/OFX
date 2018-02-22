@@ -8,7 +8,6 @@ const Amount = (props: { dispatch: * }) => (
   <FormControl
     id='amount'
     label='Amount'
-    required
     placeholder='Amount'
     type={FORM_CONTROL_TYPES.TEXT}
     onBlur={

@@ -7,7 +7,6 @@ const LastNameField = () => (
   <FormControl
     id='lastName'
     label='Last Name'
-    required
     placeholder='Last Name'
     type={FORM_CONTROL_TYPES.TEXT}
   />

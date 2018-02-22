@@ -1,26 +1,29 @@
-// // @flow
+// @flow
 
-// type ResultReducerProps = {
-//   rate: number,
-//   location: string,
-// }
+type ResultReducerProps = {
+  rate: number,
+  fromCurrency: string,
+  toCurrency: string,
+  fromAmount: number,
+  toAmount: number
+}
 
-// const pageReducer = (state: ?PageReducerProps, action: *): PageReducerProps => {
-//   if (!state) {
-//     return {
-//       isLoading: false,
-//       location: ''
-//     }
-//   }
-//   switch (action.type) {
-//     case 'PAGE/CHANGE_LOCATION':
-//       return {
-//         ...state,
-//         location: action.data
-//       }
-//     default:
-//       return state
-//   }
-// }
+const resultReducer = (state: ?ResultReducerProps, action: *): ResultReducerProps => {
+  if (!state) {
+    return {
+      rate: 1,
+      fromCurrency: 'AUD',
+      toCurrency: 'AUD',
+      fromAmount: 0,
+      toAmount: 0
+    }
+  }
+  switch (action.type) {
+    case 'RESULT/UPDATE':
+      return action.data
+    default:
+      return state
+  }
+}
 
-// export default pageReducer
+export default resultReducer

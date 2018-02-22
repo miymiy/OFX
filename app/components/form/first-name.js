@@ -16,7 +16,6 @@ class FirstNameField extends React.Component {
       <FormControl
         id='firstName'
         label='First Name'
-        required
         placeholder='First Name'
         type={FORM_CONTROL_TYPES.TEXT}
       />

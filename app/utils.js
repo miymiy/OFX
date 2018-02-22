@@ -18,7 +18,3 @@ export const dollarStrToNumber = (str: string) => {
 }
 
 export const getCurrPath = () => window.location.pathname.substring(1)
-
-export const mapQuotesToDisplay = () => {
-  
-}

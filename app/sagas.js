@@ -9,6 +9,7 @@ function* fetchCurrencyTypes(): Generator<*, *, *> {
   const currencies = {
     '': '',
     AUD: 'Australian Dollar (AUD)',
+    USD: 'United States Dollar (USD)',
     CAD: 'Canadian Dollar (CAD)',
     EUR: 'Euro (EUR)',
     GBP: 'British Pound (GBP)',
@@ -16,7 +17,7 @@ function* fetchCurrencyTypes(): Generator<*, *, *> {
     NZD: 'New Zealand Dollar (NZD)'
   }
   yield put({
-    type: 'FORM/UPDATE_SELECTOR_DATA',
+    type: 'DATA/FORM/UPDATE_SELECTOR_DATA',
     data: {
       currencies
     }
@@ -52,7 +53,7 @@ function* fetchCountryCodes(): Generator<*, *, *> {
    '886': '+886'
  }
   yield put({
-    type: 'FORM/UPDATE_SELECTOR_DATA',
+    type: 'DATA/FORM/UPDATE_SELECTOR_DATA',
     data: {
       countryCodes
     }
@@ -60,7 +61,67 @@ function* fetchCountryCodes(): Generator<*, *, *> {
   
 }
 
+// validation functions
+function* validateFormData(): * {
+  const {
+    staticData,
+    form
+  } = yield select(s => s)
+
+  const formData = form.data
+
+  const errors = Object.keys(staticData.form.required).reduce(
+    (err, fieldName) => {
+      if (!formData[fieldName]) {
+        return {
+          ...err,
+          [fieldName]: true
+        }
+      }
+      return err
+    }, {}
+  )
+  const currencyErrors = formData.fromCurrency === formData.toCurrency ?
+    { fromCurrency: true, toCurrency: true } : {}
+  yield put({
+    type: 'FORM/UPDATE_ERRORS',
+    data: {
+      ...errors,
+      ...currencyErrors
+    }
+  })
+}
+
+
+type ConversionResult = {
+  CustomerRate: number,
+  CustomerAmount: number,
+  Message: string
+}
+
+function* putResult(result: ConversionResult,
+  fromCurrency: string,
+  toCurrency: string,
+  fromAmount: number
+): * {
+  yield put({
+    type: 'RESULT/UPDATE',
+    data: {
+      rate: result.CustomerRate,
+      fromCurrency,
+      toCurrency,
+      fromAmount,
+      toAmount: result.CustomerAmount
+    }
+  })
+  yield put({
+    type: 'PAGE/CHANGING_LOCATION',
+    data: 'result'
+  })
+}
+
 function* fetchQuote(): Generator<*, *, *> {
+  yield call(validateFormData)
   const {
     data,
     errors
@@ -69,26 +130,21 @@ function* fetchQuote(): Generator<*, *, *> {
   const amount = dollarStrToNumber(data.amount)
 
   if (!R.isEmpty(errors) || isNaN(amount)) {
-    //show errors
+    //show an error message
     return
   }
   const uri = `https://api.ofx.com/PublicSite.ApiService/OFX/spotrate/Individual/${data.fromCurrency}/${data.toCurrency}/${amount}?format=json`
   const result = yield call(request, uri)
-  // display another page
-  console.log(result)
-  yield put({
-    type: 'PAGE/CHANGING_LOCATION',
-    data: 'result'
-  })
+  yield fork(putResult, result, data.fromCurrency, data.toCurrency, amount)
 }
 
 function* watchLocationChange(): Generator<*, *, *> {
   while (true) {
     const { data } = yield take('PAGE/CHANGING_LOCATION')
-    history.pushState(null, '', `${window.location.href}${data}`)
+    history.pushState(null, '', `${window.location.origin}/${data}`)
     yield put({
       type: 'PAGE/CHANGE_LOCATION',
-      data: 'result'
+      data,
     })
   }
 }

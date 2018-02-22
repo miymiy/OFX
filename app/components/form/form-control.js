@@ -7,7 +7,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup'
 import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import SelectControl from './select-control'
 
-import type { SelectorData } from '../../reducers/formReducer'
+import type { SelectorData } from '../shared'
 
 export const FORM_CONTROL_TYPES = {
   TEXT: 'text',
@@ -18,7 +18,7 @@ type FormControlPropsBase = {
   id: string,
   label: string,
   value: string,
-  required?: boolean,
+  required: boolean,
   placeholder?: string,
   hasError: boolean,
   dispatch: *
@@ -42,7 +42,7 @@ const FormControl = (props: FormControlProps) => {
   const {
     id,
     label,
-    required = false,
+    required,
     value,
     placeholder = '',
     type,
@@ -102,7 +102,6 @@ const FormControl = (props: FormControlProps) => {
         {label}
       </ControlLabel>
       {getControl()}
-      <BootstrapFormControl.Feedback />
     </FormGroup>
   )
 }
@@ -111,7 +110,8 @@ const FormControl = (props: FormControlProps) => {
 export default connect(
   (state, props) => ({
     value: state.form.data[props.id],
-    hasError: !!state.form.errors[props.id]
+    hasError: !!state.form.errors[props.id],
+    required: !!state.staticData.form.required[props.id]
   }),
   dispatch => ({ dispatch })
 )(FormControl)

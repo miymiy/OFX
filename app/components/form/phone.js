@@ -75,7 +75,7 @@ export default connect(
   state => ({
     countryCode: state.form.data.countryCode,
     phoneNumber: state.form.data.phoneNumber,
-    codes: state.form.selectorData.countryCodes,
+    codes: state.staticData.form.countryCodes,
     hasError: !!state.form.errors.phoneNumber
   }),
   dispatch => ({ dispatch })

@@ -3,12 +3,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import FormControl, { FORM_CONTROL_TYPES } from './form-control'
-import type { SelectorData } from '../../reducers/formReducer'
-
-export const CURRENCY_SELECTOR_TYPES = {
-  FROM: 'From',
-  TO: 'To'
-}
+import type { SelectorData } from '../shared'
 
 const CurrencySelector = (props: {
   type: 'From' | 'To',
@@ -24,7 +19,6 @@ const CurrencySelector = (props: {
     <FormControl
       id={id}
       label={text}
-      required
       placeholder={text}
       type={FORM_CONTROL_TYPES.SELECT}
       options={currencies}
@@ -33,6 +27,6 @@ const CurrencySelector = (props: {
 }
 export default connect(
   state => ({
-    currencies: state.form.selectorData.currencies,
+    currencies: state.staticData.form.currencies,
   }), null
 )(CurrencySelector)

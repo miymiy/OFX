@@ -2,6 +2,7 @@
 
 import R from 'ramda'
 import { dollarStrToNumber } from '../utils'
+import { ERROR_MESSAGES } from '../components/constants'
 
 type FormDataProps = {
   firstName: string,
@@ -14,7 +15,7 @@ type FormDataProps = {
   amount: string
 }
 
-type FormErrors = { [key: string]: true }
+type FormErrors = { [key: string]: string }
 
 type FormReducerProps = {
   data: FormDataProps,
@@ -81,7 +82,7 @@ const formReducer = (state: FormReducerProps, action: *)
           ...state,
           errors: {
             ...state.errors,
-            [action.data]: true
+            [action.data]: ERROR_MESSAGES.REQUIRED_FIELD
           }
         }
       }
@@ -93,7 +94,7 @@ const formReducer = (state: FormReducerProps, action: *)
           ...state,
           errors: {
             ...state.errors,
-            email: true
+            email: ERROR_MESSAGES.INVALID_EMAIL
           }
         }
       }
@@ -106,7 +107,7 @@ const formReducer = (state: FormReducerProps, action: *)
           ...state,
           errors: {
             ...state.errors,
-            phoneNumber: true
+            phoneNumber: ERROR_MESSAGES.INVALID_PHONE_NUMBER
           }
         }
       }
@@ -118,7 +119,7 @@ const formReducer = (state: FormReducerProps, action: *)
           ...state,
           errors: {
             ...state.errors,
-            amount: true
+            amount: ERROR_MESSAGES.AMOUNT_NOT_NUMBER
           }
         }
       }

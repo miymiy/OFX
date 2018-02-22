@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import Button from '../shared/button'
+import Button from '../button'
 
 const RestartButton = (props: { dispatch: * }) => (
   <Button

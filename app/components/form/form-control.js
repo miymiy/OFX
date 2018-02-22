@@ -7,7 +7,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup'
 import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import SelectControl from './select-control'
 
-import type { SelectorData } from '../shared'
+import type { SelectorData } from './select-control'
 
 export const FORM_CONTROL_TYPES = {
   TEXT: 'text',

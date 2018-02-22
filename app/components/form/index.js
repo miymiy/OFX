@@ -12,61 +12,65 @@ import Phone from './phone'
 import Amount from './amount'
 import SubmitButton from './submit-button'
 import CurrencySelect from './currency-select'
-import { CURRENCY_SELECTOR_TYPES } from '../shared'
+import ErrorMessages from './error-messages'
+import { CURRENCY_SELECTOR_TYPES } from '../constants'
 
 const Form = ({ loading, dispatch}) => (
-  <form>
-    <div className="panel panel-default">
-      <div className="panel-heading">
-        <Row>
-          <Col sm={6}>
-            <FirstNameField />
-          </Col>
-          <Col sm={6}>
-            <LastNameField />
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={12}>
-            <EmailField />
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={12}>
-            <Phone />
-          </Col>
-        </Row>
-      </div>
-      <div
-        className="panel-body"
-      >
-        <Row>
-          <Col sm={6}>
+  <React.Fragment>
+    <ErrorMessages />
+    <form>
+      <div className="panel panel-default">
+        <div className="panel-heading">
+          <Row>
+            <Col sm={6}>
+              <FirstNameField />
+            </Col>
+            <Col sm={6}>
+              <LastNameField />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={12}>
+              <EmailField />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={12}>
+              <Phone />
+            </Col>
+          </Row>
+        </div>
+        <div
+          className="panel-body"
+        >
+          <Row>
+            <Col sm={6}>
+              <CurrencySelect
+                type={CURRENCY_SELECTOR_TYPES.FROM}
+              />
+            </Col>
+            <Col sm={6}>
             <CurrencySelect
-              type={CURRENCY_SELECTOR_TYPES.FROM}
+              type={CURRENCY_SELECTOR_TYPES.TO}
             />
-          </Col>
-          <Col sm={6}>
-          <CurrencySelect
-            type={CURRENCY_SELECTOR_TYPES.TO}
-          />
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={6}>
-            <Amount />
-          </Col>
-          <Col sm={6}>
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={12}>
-            <SubmitButton />
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <Amount />
+            </Col>
+            <Col sm={6}>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={12}>
+              <SubmitButton />
+            </Col>
+          </Row>
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </React.Fragment>
 )
 
 const mapStateToProps = (state) => ({

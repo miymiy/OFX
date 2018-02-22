@@ -10,7 +10,7 @@ type ResultCurrencyProps = {
 }
 
 const Currency = (props: ResultCurrencyProps) => (
-  <div>
+  <div className="text-left">
     <h2>{props.type}</h2>
     <span
       style={{

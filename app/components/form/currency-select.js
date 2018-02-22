@@ -3,7 +3,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import FormControl, { FORM_CONTROL_TYPES } from './form-control'
-import type { SelectorData } from '../shared'
+import type { SelectorData } from './select-control'
 
 const CurrencySelector = (props: {
   type: 'From' | 'To',

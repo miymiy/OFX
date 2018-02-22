@@ -1,6 +1,7 @@
 import R from 'ramda'
 import { fork, call, put, take, spawn, select } from 'redux-saga/effects'
 import { request, dollarStrToNumber } from './utils'
+import { ERROR_MESSAGES } from './components/constants'
 
 function* fetchCurrencyTypes(): Generator<*, *, *> {
   /* Some api calls to get currency types
@@ -61,7 +62,6 @@ function* fetchCountryCodes(): Generator<*, *, *> {
   
 }
 
-// validation functions
 function* validateFormData(): * {
   const {
     staticData,
@@ -75,7 +75,7 @@ function* validateFormData(): * {
       if (!formData[fieldName]) {
         return {
           ...err,
-          [fieldName]: true
+          [fieldName]: ERROR_MESSAGES.REQUIRED_FIELD
         }
       }
       return err
@@ -99,7 +99,7 @@ type ConversionResult = {
   Message: string
 }
 
-function* putResult(result: ConversionResult,
+function* putQuoteToResult(result: ConversionResult,
   fromCurrency: string,
   toCurrency: string,
   fromAmount: number
@@ -130,12 +130,11 @@ function* fetchQuote(): Generator<*, *, *> {
   const amount = dollarStrToNumber(data.amount)
 
   if (!R.isEmpty(errors) || isNaN(amount)) {
-    //show an error message
     return
   }
   const uri = `https://api.ofx.com/PublicSite.ApiService/OFX/spotrate/Individual/${data.fromCurrency}/${data.toCurrency}/${amount}?format=json`
   const result = yield call(request, uri)
-  yield fork(putResult, result, data.fromCurrency, data.toCurrency, amount)
+  yield spawn(putQuoteToResult, result, data.fromCurrency, data.toCurrency, amount)
 }
 
 function* watchLocationChange(): Generator<*, *, *> {

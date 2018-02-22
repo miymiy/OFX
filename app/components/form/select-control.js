@@ -2,7 +2,8 @@
 
 import React from 'react'
 import FormControl from 'react-bootstrap/lib/FormControl'
-import type { SelectorData } from '../shared'
+
+export type SelectorData = { [key: string]: true }
 
 const SelectControl = (props: {
   options: SelectorData

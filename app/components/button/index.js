@@ -1,11 +1,13 @@
 // @flow
 
 import React from 'react'
+import { connect } from 'react-redux'
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar'
 import BootStrapButton from 'react-bootstrap/lib/Button'
 
 type ButtonProps = {
-  children?: string
+  children?: string,
+  isLoading: boolean
 }
 
 const customStyles = {
@@ -20,6 +22,7 @@ const customStyles = {
 const Button = (props: ButtonProps) => {
   const {
     children,
+    isLoading,
     ...rest
   } = props
   return (
@@ -31,6 +34,7 @@ const Button = (props: ButtonProps) => {
         bsStyle='primary'
         style={customStyles}
         {...rest}
+        disabled={isLoading}
       >
         {children && typeof children === 'string' ? children.toUpperCase() : children}
       </BootStrapButton>
@@ -38,4 +42,8 @@ const Button = (props: ButtonProps) => {
   )
 }
 
-export default Button
+export default connect(
+  state => ({
+    isLoading: state.page.isLoading
+  }), null
+)(Button)

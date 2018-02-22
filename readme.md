@@ -10,3 +10,4 @@ So here it is :) Thanks for reading and testing
 4. Styling can be centralised: I used bootstrap to give myself a quick start. There are custom css and styles in quite a few places. They should be tidied up.
 5. Import with absolute path, eg as discussed [here](https://gist.github.com/branneman/8048520)
 6. Cannot think of more component refactors for now (YAGNI trumps DRY) but there may be more when I come back to look at this again.
+7. Supported browser testing: this is only tested in Chrome & Firefox

@@ -20,6 +20,11 @@ const pageReducer = (state: ?PageReducerProps, action: *): PageReducerProps => {
         ...state,
         location: action.data
       }
+    case 'PAGE/TOGGLE_LOADING':
+      return {
+        ...state,
+        isLoading: !state.isLoading
+      }
     default:
       return state
   }

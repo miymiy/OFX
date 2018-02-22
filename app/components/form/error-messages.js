@@ -14,7 +14,6 @@ const ErrorMessages = (props: {
   const messages = hasErrors ?
     Object.keys(props.errors).map(k => props.errors[k]).filter(isUnique)
     : []
-  console.log(messages)
   return hasErrors && (
     <MessageBox
       type={MESSAGE_BOX_TYPES.DANGER}

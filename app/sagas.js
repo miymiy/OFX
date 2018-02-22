@@ -121,6 +121,9 @@ function* putQuoteToResult(result: ConversionResult,
 }
 
 function* fetchQuote(): Generator<*, *, *> {
+  yield put.resolve({
+    type: 'PAGE/TOGGLE_LOADING'
+  })
   yield call(validateFormData)
   const {
     data,
@@ -130,11 +133,15 @@ function* fetchQuote(): Generator<*, *, *> {
   const amount = dollarStrToNumber(data.amount)
 
   if (!R.isEmpty(errors) || isNaN(amount)) {
+    //some better error handling here
     return
   }
   const uri = `https://api.ofx.com/PublicSite.ApiService/OFX/spotrate/Individual/${data.fromCurrency}/${data.toCurrency}/${amount}?format=json`
   const result = yield call(request, uri)
   yield spawn(putQuoteToResult, result, data.fromCurrency, data.toCurrency, amount)
+  yield put({
+    type: 'PAGE/TOGGLE_LOADING'
+  })
 }
 
 function* watchLocationChange(): Generator<*, *, *> {

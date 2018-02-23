@@ -13,6 +13,5 @@ I decided to install the required tools for this project to become production re
 2. Complete typing, fix linting issues
 3. Styling can be centralised: I used bootstrap to give myself a quick start. There are custom css and styles in quite a few places. They should be tidied up.
 4. Tests (of course!)
-5. Import with absolute path, eg as discussed [here](https://gist.github.com/branneman/8048520)
-6. Cannot think of more component refactors for now (YAGNI trumps DRY) but there may be more when I come back to look at this again.
-7. Supported browser testing: this is only tested in Chrome & Firefox
+5. Cannot think of more component refactors for now (YAGNI trumps DRY) but there may be more when I come back to look at this again.
+6. Supported browser testing: this is only tested in Chrome & Firefox

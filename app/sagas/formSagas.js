@@ -91,17 +91,6 @@ function* fetchQuote(): Generator<*, *, *> {
   });
 }
 
-function* watchLocationChange(): Generator<*, *, *> {
-  while (true) {
-    const { data } = yield take('PAGE/CHANGING_LOCATION');
-    global.history.pushState(null, '', `${global.window.location.origin}/${data}`);
-    yield put({
-      type: 'PAGE/CHANGE_LOCATION',
-      data,
-    });
-  }
-}
-
 function* watchSubmit(): Generator<*, *, *> {
   while (true) {
     yield take('FORM/SUBMIT');
@@ -110,7 +99,6 @@ function* watchSubmit(): Generator<*, *, *> {
 }
 
 const formSagas = [
-  fork(watchLocationChange),
   fork(watchSubmit),
 ];
 

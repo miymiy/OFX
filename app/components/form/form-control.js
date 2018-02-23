@@ -104,11 +104,11 @@ const FormControl = (props: FormControlProps) => {
       </ControlLabel>
       {getControl()}
       {hasError && (
-        <label
+        <span
           className="error-feedback"
         >
           {error}
-        </label>)
+        </span>)
       }
     </FormGroup>
   );
